@@ -65,7 +65,6 @@ export const MainProvider = ({ children }) => {
 
   useEffect(() => {
     fetchItems();
-    console.log(items);
   }, [token]);
 
   const login = async (email, password) => {

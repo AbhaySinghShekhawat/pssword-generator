@@ -41,8 +41,7 @@ export default function Signup() {
     setLoading(true);
     try {
       const res = await axios.post(`${API}/auth/signup`, { email, password });
-      console.log("Signup response:", res.data);
-
+      
       const user = res.data.user;
       const token = res.data.token;
 

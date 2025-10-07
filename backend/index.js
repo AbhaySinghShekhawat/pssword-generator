@@ -21,10 +21,7 @@ app.use(cookieParser());
 app.use('/auth', authRouter);
 app.use('/vault', vaultRouter);
 
-mongoose.connect(process.env.MONGO_URL,{
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-})
+mongoose.connect(process.env.MONGO_URL)
 .then(()=>{
     console.log('database connected');
     

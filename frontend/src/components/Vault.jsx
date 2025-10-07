@@ -3,10 +3,12 @@ import { MainContext } from "../context/MainContext";
 import CryptoJS from "crypto-js";
 import axios from "axios";
 import { FiEye, FiEdit, FiTrash2, FiCopy, FiRefreshCcw } from "react-icons/fi";
+import { useNavigate } from "react-router-dom";
 
 export default function Vault() {
   const { API, items, setItems, token, fetchItems } = useContext(MainContext);
   const secretKey = "mySecretKey";
+  const navigate = useNavigate();
 
   const [form, setForm] = useState({ title: "", username: "", password: "", url: "", notes: "" });
   const [editId, setEditId] = useState(null);
@@ -15,6 +17,13 @@ export default function Vault() {
   useEffect(() => {
     fetchItems();
   }, []);
+
+  useEffect(() => {
+    if (!token) {
+      navigate("/signup");
+    }
+  }, [token, navigate]);
+  
 
   const handleChange = e => setForm({ ...form, [e.target.name]: e.target.value });
 
