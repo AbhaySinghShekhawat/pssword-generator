@@ -47,25 +47,26 @@ export const MainProvider = ({ children }) => {
   }, []); 
 
   const fetchItems = async () => {
-    if (!token) return;
-    try {
-      const res = await axios.get(`${API}/vault`,{
-        headers: {
-          Authorization: `Bearer ${token}`
-        }
-      });
-      if (res.data.status === 1) {
-        const decrypted = res.data.items.map(item => ({
-          ...item,
-          password: CryptoJS.AES.decrypt(item.password, secretKey).toString(CryptoJS.enc.Utf8)
-        }));
-        setItems(decrypted);
-        localStorage.setItem("vaultItems", JSON.stringify(decrypted));
-      }
-    } catch (err) {
-      console.error("Fetch items failed:", err);
+  if (!token) return;
+  try {
+    const res = await axios.get(`${API}/vault`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+
+    if (res.data.status === 1) {
+      const decrypted = res.data.items.map(item => ({
+        ...item,
+        password: CryptoJS.AES.decrypt(item.password, secretKey).toString(CryptoJS.enc.Utf8),
+      }));
+      setItems(decrypted);
+      localStorage.setItem("vaultItems", JSON.stringify(decrypted));
+    } else {
+      console.error("Fetch items failed:", res.data.message);
     }
-  };
+  } catch (err) {
+    console.error("Fetch items error:", err.response?.data || err.message);
+  }
+};
 
   useEffect(() => {
     fetchItems();
