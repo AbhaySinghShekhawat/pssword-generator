@@ -49,7 +49,11 @@ export const MainProvider = ({ children }) => {
   const fetchItems = async () => {
     if (!token) return;
     try {
-      const res = await axios.get(`${API}/vault`);
+      const res = await axios.get(`${API}/vault`,{
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
       if (res.data.status === 1) {
         const decrypted = res.data.items.map(item => ({
           ...item,
