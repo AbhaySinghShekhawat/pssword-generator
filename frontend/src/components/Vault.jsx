@@ -65,6 +65,7 @@ export default function Vault() {
         await axios.put(`${API}/vault/${editId}`, payload, { headers: { Authorization: `Bearer ${token}` } });
       } else {
         await axios.post(`${API}/vault`, payload, { headers: { Authorization: `Bearer ${token}` } });
+        console.log(token)
       }
       setForm({ title: "", username: "", password: "", url: "", notes: "" });
       setEditId(null);
