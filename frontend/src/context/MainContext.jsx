@@ -5,7 +5,7 @@ import CryptoJS from "crypto-js";
 export const MainContext = createContext();
 
 export const MainProvider = ({ children }) => {
-  const API = "http://localhost:5000";
+  const API = "https://pssword-generator-8aoc.onrender.com";
     const secretKey = "mySecretKey";
 
 
