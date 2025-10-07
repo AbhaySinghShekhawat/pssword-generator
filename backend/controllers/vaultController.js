@@ -25,6 +25,7 @@ exports.createVaultItem = async (req, res) => {
   try {
     const { title, username, password, url, notes } = req.body;
     const item = await VaultItem.create({
+      console.log(req.user)
       owner: req.user._id,
       title,
       username,
